@@ -3,6 +3,7 @@ package com.egconley.codefellowship;
 import com.egconley.codefellowship.models.AppUser;
 import com.egconley.codefellowship.models.AppUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,6 +14,9 @@ public class CFController {
 
     @Autowired
     AppUserRepository appUserRepository;
+
+    @Autowired
+    PasswordEncoder encoder;
 
     @GetMapping("/")
     public String getHome() {
@@ -26,7 +30,7 @@ public class CFController {
 
     @PostMapping("/signup")
     public RedirectView signup(String username, String password, String email, String firstName, String lastName, String dateOfBirth, String bio) {
-        AppUser newUser = new AppUser(username, password, email, firstName, lastName, dateOfBirth, bio);
+        AppUser newUser = new AppUser(username, encoder.encode(password), email, firstName, lastName, dateOfBirth, bio);
         appUserRepository.save(newUser);
         return new RedirectView("/");
     }
