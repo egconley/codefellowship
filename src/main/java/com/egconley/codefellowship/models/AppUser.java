@@ -15,12 +15,20 @@ public class AppUser {
     String username;
     String password;
     String email;
+    String firstName;
+    String lastName;
+    String dateOfBirth;
+    String bio;
 
     public AppUser() {}
 
-    public AppUser(String username, String password, String email) {
+    public AppUser(String username, String password, String email, String firstName, String lastName, String dateOfBirth, String bio) {
         this.username = username;
         this.password = password;
         this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dateOfBirth = dateOfBirth;
+        this.bio = bio;
     }
 }
