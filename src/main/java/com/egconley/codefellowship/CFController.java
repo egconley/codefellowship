@@ -10,4 +10,9 @@ public class CFController {
     public String getHome() {
         return "home";
     }
+
+    @GetMapping("/signup")
+    public String getSignUp() {
+        return "signup";
+    }
 }
