@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<nav th:fragment="nav">
+    <span th:if="${username}">
+        <span>Hi, [[$username]]</span>
+        <a href="/logout">Log out</a>
+    </span>
+    <a href="/">Home</a>
+    <span th:unless="${username}">
+        <a href="/login">Log In</a>
+        <a href="/signup">Sign up</a>
+    </span>
+
+</nav>
+</body>
+</html>

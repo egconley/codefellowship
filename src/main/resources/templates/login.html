@@ -6,6 +6,7 @@
 </head>
 <body>
 <h1>Login</h1>
+<nav th:replace="fragments/common :: nav"></nav>
 <form method="post" action="/login">
     <label>Username<input name="username"/></label>
     <label>Password<input name="password" type="password"/></label>
