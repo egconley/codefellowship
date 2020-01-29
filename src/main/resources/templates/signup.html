@@ -2,11 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link th:replace="fragments/common :: css"/>
     <title>sign-up</title>
 </head>
 <body>
 <h1>Sign up for Code Fellowship</h1>
-
+<nav th:replace="fragments/common :: nav"></nav>
+<h3 th:if="${param.taken}">Username already in use, please try again.</h3>
 <form action="/signup" method="post">
     <label>Username <input name="username"/></label>
     <br>

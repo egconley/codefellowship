@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link th:replace="fragments/common :: css"/>
+    <title>Home</title>
+</head>
+<body>
+<h1>Code Fellowship</h1>
+<nav th:replace="fragments/common :: nav"></nav>
+
+<img src="https://uploads.scratch.mit.edu/users/avatars/41074063.png"/>
+<li>[[${user.firstName}]] [[${user.lastName}]]</li>
+<li>Username: [[${user.username}]]</li>
+<li>Email: [[${user.email}]]</li>
+<li>DOB: [[${user.dateOfBirth}]]</li>
+<li>Bio: [[${user.bio}]]</li>
+
+</body>
+</html>
