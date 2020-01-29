@@ -41,9 +41,13 @@ public class CFController {
 
     @PostMapping("/signup")
     public RedirectView signup(String username, String password, String email, String firstName, String lastName, String dateOfBirth, String bio) {
-        AppUser newUser = new AppUser(username, encoder.encode(password), email, firstName, lastName, dateOfBirth, bio);
-        appUserRepository.save(newUser);
-        return new RedirectView("/");
+        if (appUserRepository.findByUsername(username)==null) {
+            AppUser newUser = new AppUser(username, encoder.encode(password), email, firstName, lastName, dateOfBirth, bio);
+            appUserRepository.save(newUser);
+            return new RedirectView("/");
+        } else {
+            return new RedirectView("/signup?taken=true");
+        }
     }
 
     @GetMapping("/login")
