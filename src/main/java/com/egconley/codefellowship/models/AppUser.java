@@ -51,6 +51,10 @@ public class AppUser implements UserDetails {
         return this.username;
     }
 
+    public String getFirstName() {
+        return firstName;
+    }
+
     @Override
     public boolean isAccountNonExpired() {
         return true;

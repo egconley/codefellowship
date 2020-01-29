@@ -5,6 +5,7 @@ import com.egconley.codefellowship.models.AppUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.view.RedirectView;
@@ -21,9 +22,12 @@ public class CFController {
     PasswordEncoder encoder;
 
     @GetMapping("/")
-    public String getHome(Principal p) {
+    public String getHome(Principal p, Model m) {
         if (p != null) {
             System.out.println(p.getName());
+            AppUser user = appUserRepository.findByUsername(p.getName());
+            m.addAttribute("username", p.getName());
+            m.addAttribute("user", user);
         } else {
             System.out.println("not logged in");
         }
