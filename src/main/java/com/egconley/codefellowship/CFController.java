@@ -3,6 +3,9 @@ package com.egconley.codefellowship;
 import com.egconley.codefellowship.models.AppUser;
 import com.egconley.codefellowship.models.AppUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.security.Principal;
+import java.util.ArrayList;
 
 @Controller
 public class CFController {
@@ -44,6 +48,10 @@ public class CFController {
         if (appUserRepository.findByUsername(username)==null) {
             AppUser newUser = new AppUser(username, encoder.encode(password), email, firstName, lastName, dateOfBirth, bio);
             appUserRepository.save(newUser);
+
+            Authentication authentication = new UsernamePasswordAuthenticationToken(newUser, null, new ArrayList<>());
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+
             return new RedirectView("/");
         } else {
             return new RedirectView("/signup?taken=true");
