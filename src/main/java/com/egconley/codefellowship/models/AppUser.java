@@ -41,6 +41,10 @@ public class AppUser implements UserDetails {
         return null;
     }
 
+    public Long getId() {
+        return id;
+    }
+
     @Override
     public String getPassword() {
         return this.password;
@@ -53,6 +57,22 @@ public class AppUser implements UserDetails {
 
     public String getFirstName() {
         return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public String getBio() {
+        return bio;
     }
 
     @Override
