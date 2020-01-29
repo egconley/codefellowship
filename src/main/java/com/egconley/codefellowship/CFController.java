@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.security.Principal;
+
 @Controller
 public class CFController {
 
@@ -19,7 +21,12 @@ public class CFController {
     PasswordEncoder encoder;
 
     @GetMapping("/")
-    public String getHome() {
+    public String getHome(Principal p) {
+        if (p != null) {
+            System.out.println(p.getName());
+        } else {
+            System.out.println("not logged in");
+        }
         return "home";
     }
 
@@ -34,4 +41,10 @@ public class CFController {
         appUserRepository.save(newUser);
         return new RedirectView("/");
     }
+
+    @GetMapping("/login")
+    public String getLogin() {
+        return "login";
+    }
+
 }
