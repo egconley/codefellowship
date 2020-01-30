@@ -10,6 +10,7 @@
     <span th:if="${user}">
         <span>Hi, [[${user.firstName}]]</span>
         <a href="/logout">Log out</a>
+        <a th:href="'/users/'+${user.id}">My Profile</a>
     </span>
     <a href="/">Home</a>
     <span th:unless="${user}">
