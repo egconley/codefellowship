@@ -3,11 +3,9 @@ package com.egconley.codefellowship.models;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 public class AppUser implements UserDetails {
@@ -23,6 +21,9 @@ public class AppUser implements UserDetails {
     String lastName;
     String dateOfBirth;
     String bio;
+
+    @OneToMany(mappedBy = "user")
+    List<Post> posts;
 
     public AppUser() {}
 
@@ -74,6 +75,8 @@ public class AppUser implements UserDetails {
     public String getBio() {
         return bio;
     }
+
+    public List<Post> getPosts() { return posts; }
 
     @Override
     public boolean isAccountNonExpired() {
