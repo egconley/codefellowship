@@ -21,5 +21,8 @@
     <label><input type="submit"/></label>
 </form>
 
+<div th:each="post : ${user.posts}">
+    [[${post.body}]]
+</div>
 </body>
 </html>

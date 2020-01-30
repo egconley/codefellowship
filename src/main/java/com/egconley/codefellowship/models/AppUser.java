@@ -76,6 +76,8 @@ public class AppUser implements UserDetails {
         return bio;
     }
 
+    public List<Post> getPosts() { return posts; }
+
     @Override
     public boolean isAccountNonExpired() {
         return true;
