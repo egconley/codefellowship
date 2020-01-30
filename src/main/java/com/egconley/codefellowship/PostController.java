@@ -35,8 +35,13 @@ public class PostController {
     }
 
     @DeleteMapping("/posts/{id}")
-    public RedirectView deletePost(@PathVariable long id) {
-        postRepository.deleteById(id);
+    public RedirectView deletePost(@PathVariable long id, Principal p) {
+        AppUser user = appUserRepository.findByUsername(p.getName());
+        Post post = postRepository.getOne(id);
+        if (user.getPosts().contains(post)) {
+            postRepository.deleteById(id);
+        }
+
         return new RedirectView("/");
     }
 }
