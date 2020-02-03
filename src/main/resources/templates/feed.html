@@ -11,6 +11,9 @@
 
 <h3>Feed</h3>
 
-<div th:each="post : ${user?.posts}">
-    [[${post.body}]]
+<div th:each="userIfollow : ${loggedInUser?.usersIFollow}">
+    <h3>Recent posts by [[${userIfollow.username}]]:</h3>
+    <ul>
+        <li th:each="post : ${userIfollow?.posts}">[[${post.body}]]</li>
+    </ul>
 </div>

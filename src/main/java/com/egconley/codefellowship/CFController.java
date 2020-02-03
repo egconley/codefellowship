@@ -66,6 +66,17 @@ public class CFController {
         return "login";
     }
 
+    @GetMapping("/feed")
+    public String getFeed(Model m, Principal p) {
+
+        AppUser loggedInUser = appUserRepository.findByUsername(p.getName());
+        List<AppUser> following = loggedInUser.getUsersIFollow();
+
+        m.addAttribute("loggedInUser", loggedInUser);
+
+        return "feed";
+    }
+
     @GetMapping("/users/{id}")
     public String getUserAccount(Model m, @PathVariable Long id, Principal p) {
         AppUser loggedInUser = appUserRepository.findByUsername(p.getName());

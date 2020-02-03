@@ -11,6 +11,7 @@
         <span>Hi, [[${loggedInUser.firstName}]]</span>
         <a href="/logout">Log out</a>
         <a th:href="'/users/'+${loggedInUser.id}">My Profile</a>
+        <a href="/feed">Feed</a>
     </span>
     <a href="/">Home</a>
     <span th:unless="${loggedInUser}">
