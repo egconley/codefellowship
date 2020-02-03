@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link th:replace="fragments/common :: css"/>
+    <title>Home</title>
+</head>
+<body>
+<h1>Code Fellowship</h1>
+<nav th:replace="fragments/common :: nav"></nav>
+
+<h3>Public Profile for [[${user.firstName}]] [[${user.lastName}]]</h3>
+
+<form method="post" th:action="'/users/'+${user.id}+'/follow'">
+    <input type = "submit" th:value="'Follow '+${user.firstName}"/>
+</form>
+
+<img src="https://uploads.scratch.mit.edu/users/avatars/41074063.png"/>
+<li>username: [[${user.username}]]</li>
+
+<h3>Recent Posts</h3>
+<div th:each="post : ${user?.posts}">
+    [[${post.body}]]
+    <form method="post" th:action="'/posts/'+${post.id}">
+        <input type="hidden" name="_method" value="delete"/>
+    </form>
+</div>

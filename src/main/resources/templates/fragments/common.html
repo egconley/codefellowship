@@ -7,13 +7,14 @@
 </head>
 <body>
 <nav th:fragment="nav">
-    <span th:if="${user}">
-        <span>Hi, [[${user.firstName}]]</span>
+    <span th:if="${loggedInUser}">
+        <span>Hi, [[${loggedInUser.firstName}]]</span>
         <a href="/logout">Log out</a>
-        <a th:href="'/users/'+${user.id}">My Profile</a>
+        <a th:href="'/users/'+${loggedInUser.id}">My Profile</a>
+        <a href="/feed">Feed</a>
     </span>
     <a href="/">Home</a>
-    <span th:unless="${user}">
+    <span th:unless="${loggedInUser}">
         <a href="/login">Log In</a>
         <a href="/signup">Sign up</a>
     </span>

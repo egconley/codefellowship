@@ -8,5 +8,11 @@
 <body>
 <h1>Code Fellowship</h1>
 <nav th:replace="fragments/common :: nav"></nav>
+
+<h3>Code Fellowship Users</h3>
+<div th:each="user : ${users}">
+    <a th:href="'/users/'+${user.id}+'/profile'">[[${user.username}]]</a>
+</div>
+
 </body>
 </html>

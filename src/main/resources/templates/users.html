@@ -10,18 +10,23 @@
 <nav th:replace="fragments/common :: nav"></nav>
 
 <img src="https://uploads.scratch.mit.edu/users/avatars/41074063.png"/>
-<li>[[${user.firstName}]] [[${user.lastName}]]</li>
-<li>Username: [[${user.username}]]</li>
-<li>Email: [[${user.email}]]</li>
-<li>DOB: [[${user.dateOfBirth}]]</li>
-<li>Bio: [[${user.bio}]]</li>
+<li>[[${loggedInUser.firstName}]] [[${loggedInUser.lastName}]]</li>
+<li>Username: [[${loggedInUser.username}]]</li>
+<li>Email: [[${loggedInUser.email}]]</li>
+<li>DOB: [[${loggedInUser.dateOfBirth}]]</li>
+<li>Bio: [[${loggedInUser.bio}]]</li>
+
+<h3>Users [[${loggedInUser.firstName}]] follows:</h3>
+<div th:each="userIfollow : ${loggedInUser.usersIFollow}">
+    [[${userIfollow.username}]]
+</div>
 
 <form action="/posts" method="post">
     <label>Write a post: <input type="text" name="body"/></label>
     <label><input type="submit"/></label>
 </form>
 
-<div th:each="post : ${user?.posts}">
+<div th:each="post : ${loggedInUser?.posts}">
     [[${post.body}]]
     <form method="post" th:action="'/posts/'+${post.id}">
         <input type="hidden" name="_method" value="delete"/>

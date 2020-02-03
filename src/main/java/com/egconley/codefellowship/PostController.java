@@ -6,6 +6,7 @@ import com.egconley.codefellowship.models.Post;
 import com.egconley.codefellowship.models.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,12 +27,14 @@ public class PostController {
     @PostMapping("/posts")
     public RedirectView createPost(String body, Principal p) {
 
-        AppUser user = appUserRepository.findByUsername(p.getName());
+        AppUser loggedInUser = appUserRepository.findByUsername(p.getName());
 
-        Post post = new Post(body, new Date(), user);
+        Long id = loggedInUser.getId();
+
+        Post post = new Post(body, new Date(), loggedInUser);
 
         postRepository.save(post);
-        return new RedirectView("/");
+        return new RedirectView("/users/" + id);
     }
 
     @DeleteMapping("/posts/{id}")

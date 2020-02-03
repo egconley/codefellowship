@@ -25,6 +25,19 @@ public class AppUser implements UserDetails {
     @OneToMany(mappedBy = "user")
     List<Post> posts;
 
+    // Something to keep track of all the users I follow
+    @ManyToMany
+    @JoinTable(
+            name = "usersFollowUsers",
+            joinColumns = { @JoinColumn(name = "follower_id")},
+            inverseJoinColumns = { @JoinColumn(name = "followed_id")}
+    )
+    List<AppUser> usersIFollow;
+
+    // Something to keep track of all the users that follow me
+    @ManyToMany(mappedBy = "usersIFollow")
+    List<AppUser> usersThatFollowMe;
+
     public AppUser() {}
 
     public AppUser(String username, String password, String email, String firstName, String lastName, String dateOfBirth, String bio) {
@@ -77,6 +90,10 @@ public class AppUser implements UserDetails {
     }
 
     public List<Post> getPosts() { return posts; }
+
+    public List<AppUser> getUsersIFollow() { return usersIFollow; }
+
+    public List<AppUser> getUsersThatFollowMe() { return usersThatFollowMe; }
 
     @Override
     public boolean isAccountNonExpired() {

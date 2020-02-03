@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link th:replace="fragments/common :: css"/>
+    <title>Home</title>
+</head>
+<body>
+<h1>Code Fellowship</h1>
+<nav th:replace="fragments/common :: nav"></nav>
+
+<h3>Feed</h3>
+
+<div th:each="userIfollow : ${loggedInUser?.usersIFollow}">
+    <h3>Recent posts by <a th:href="'/users/'+${userIfollow.id}+'/profile'">[[${userIfollow.username}]]:</a></h3>
+    <ul>
+        <li th:each="post : ${userIfollow?.posts}">[[${post.body}]]</li>
+    </ul>
+</div>

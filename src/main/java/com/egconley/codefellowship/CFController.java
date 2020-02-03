@@ -16,6 +16,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class CFController {
@@ -30,9 +31,10 @@ public class CFController {
     public String getHome(Principal p, Model m) {
         if (p != null) {
             System.out.println(p.getName());
-            AppUser user = appUserRepository.findByUsername(p.getName());
+            AppUser loggedInUser = appUserRepository.findByUsername(p.getName());
             m.addAttribute("username", p.getName());
-            m.addAttribute("user", user);
+            m.addAttribute("loggedInUser", loggedInUser);
+            m.addAttribute("users", appUserRepository.findAll());
         } else {
             System.out.println("not logged in");
         }
@@ -64,15 +66,49 @@ public class CFController {
         return "login";
     }
 
+    @GetMapping("/feed")
+    public String getFeed(Model m, Principal p) {
+
+        AppUser loggedInUser = appUserRepository.findByUsername(p.getName());
+        List<AppUser> following = loggedInUser.getUsersIFollow();
+
+        m.addAttribute("loggedInUser", loggedInUser);
+
+        return "feed";
+    }
+
     @GetMapping("/users/{id}")
-    public String getProfile(Model m, @PathVariable Long id, Principal p) {
-        AppUser user = appUserRepository.findByUsername(p.getName());
-        if (id==user.getId()) {
-            m.addAttribute("user", appUserRepository.getOne(id));
+    public String getUserAccount(Model m, @PathVariable Long id, Principal p) {
+        AppUser loggedInUser = appUserRepository.findByUsername(p.getName());
+        if (id==loggedInUser.getId()) {
+            m.addAttribute("loggedInUser", appUserRepository.getOne(id));
             return "users";
         } else {
             return "login";
         }
+    }
+
+    @GetMapping("/users/{id}/profile")
+    public String getProfile(Model m, @PathVariable Long id, Principal p) {
+
+        AppUser loggedInUser = appUserRepository.findByUsername(p.getName());
+
+        m.addAttribute("loggedInUser", loggedInUser);
+        m.addAttribute("user", appUserRepository.getOne(id));
+
+        return "profile";
+    }
+
+    @PostMapping("/users/{id}/follow")
+    public RedirectView follow(@PathVariable Long id, Principal p) {
+
+        AppUser loggedInUser = appUserRepository.findByUsername(p.getName());
+        AppUser user = appUserRepository.getOne(id);
+
+        loggedInUser.getUsersIFollow().add(user);
+        appUserRepository.save(loggedInUser);
+
+        return new RedirectView("profile");
     }
 
 }
