@@ -26,7 +26,7 @@
     <label><input type="submit"/></label>
 </form>
 
-<div th:each="post : ${user?.posts}">
+<div th:each="post : ${loggedInUser?.posts}">
     [[${post.body}]]
     <form method="post" th:action="'/posts/'+${post.id}">
         <input type="hidden" name="_method" value="delete"/>
